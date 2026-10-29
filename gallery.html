@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery | Sasmit Dhungana</title>
+    <meta name="description" content="Photo gallery of Sasmit Dhungana — classroom sessions, tech workspace and beautiful Nepal scenery with fullscreen lightbox view.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%96%BC%3C/text%3E%3C/svg%3E">
+
+    <!-- Google Fonts: Poppins & Mukta for clean English & Devanagari typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        // Configure Tailwind theme colors and dark mode
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'Mukta', 'sans-serif'],
+                        nepali: ['Mukta', 'sans-serif']
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#2563eb',
+                            600: '#1d4ed8',
+                            700: '#1e40af',
+                            900: '#0f172a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Shared custom styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col selection:bg-blue-500 selection:text-white">
+
+    <!-- ================= GALLERY PASSWORD LOCK ================= -->
+    <div id="galleryLock" class="fixed inset-0 z-[70] bg-slate-950 flex items-center justify-center p-4">
+        <div class="w-full max-w-sm bg-slate-900 border border-slate-800 rounded-3xl p-8 text-center space-y-4 shadow-2xl">
+            <div class="w-16 h-16 mx-auto rounded-2xl bg-pink-600/20 border border-pink-500/30 text-pink-400 flex items-center justify-center text-2xl">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <h2 class="text-lg font-extrabold text-white" data-i18n="gallery.lock.title">Protected Gallery</h2>
+            <p class="text-xs text-slate-400 leading-relaxed" data-i18n="gallery.lock.desc">This photo album is private. Enter the password to view the gallery.</p>
+            <input type="password" id="galleryPasswordInput" data-i18n-ph="gallery.lock.ph" placeholder="Enter gallery password" autocomplete="off" onkeydown="if(event.key==='Enter')unlockGallery()" oninput="clearPasswordFeedback('galleryPasswordInput','galleryPasswordError')" class="w-full p-3 text-sm rounded-xl bg-slate-950 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-pink-500 transition text-center">
+            <p id="galleryPasswordError" class="hidden text-[11px] font-bold text-rose-400 text-left"></p>
+            <button onclick="unlockGallery()" class="w-full px-5 py-3 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow transition">
+                <i class="fa-solid fa-unlock"></i> <span data-i18n="gallery.lock.btn">Unlock Gallery</span>
+            </button>
+            <p class="text-[10px] text-slate-500" data-i18n="gallery.lock.hint">Hint: same password as the Downloads hub.</p>
+        </div>
+    </div>
+
+    <!-- ================= HEADER & NAVIGATION BAR ================= -->
+    <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+
+                <!-- Brand Logo -->
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-extrabold text-xl shadow-lg shadow-blue-500/30 group-hover:scale-105 transition-transform">
+                        SD
+                    </div>
+                    <div>
+                        <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+                            Sasmit Dhungana
+                        </span>
+                        <span class="block text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-semibold -mt-1">Developer & Educator</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links (multi-page) -->
+                            <nav class="hidden lg:flex items-center space-x-1">
+                <a href="index.html" class="nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-house text-blue-500"></i> <span data-i18n="nav.home">Home</span></a>
+                <a href="calendar.html" class="nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-calendar-days text-rose-500"></i> <span data-i18n="nav.calendar">Calendar</span></a>
+                <a href="converter.html" class="nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-language text-purple-500"></i> <span data-i18n="nav.preeti">Preeti</span></a>
+                <div class="relative group">
+                    <a href="tools.html" class="nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-screwdriver-wrench text-cyan-500"></i> <span data-i18n="nav.tools">Tools</span> <i class="fa-solid fa-chevron-down text-[9px] text-cyan-500 mt-0.5"></i></a>
+                    <div class="absolute left-0 top-full pt-2 hidden group-hover:block group-focus-within:block z-50 w-64">
+                        <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 p-2 space-y-0.5">
+                            <a href="tools.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-grip text-cyan-500 w-4"></i> <span data-i18n="nav.tools.all">All Tools Hub</span></a>
+                            <a href="converter.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-language text-purple-500 w-4"></i> <span data-i18n="nav.tools.preeti">Preeti ↔ Unicode</span></a>
+                            <a href="tools.html#number-to-words" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-hashtag text-orange-500 w-4"></i> <span data-i18n="nav.tools.ntw">Number to Words</span></a>
+                            <a href="typeshala.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-keyboard text-emerald-500 w-4"></i> <span data-i18n="nav.tools.typeshala">TypeShala Typing</span></a>
+                            <a href="dateconverter.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-calendar-check text-rose-500 w-4"></i> <span data-i18n="nav.tools.dateconv">Date Converter (BS ↔ AD)</span></a>
+                            <a href="electricity.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-bolt text-amber-500 w-4"></i> <span data-i18n="nav.tools.elec">Electricity Bill</span></a>
+                            <a href="emi.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-hand-holding-dollar text-blue-500 w-4"></i> <span data-i18n="nav.tools.emi">EMI Calculator</span></a>
+                        </div>
+                    </div>
+                </div>
+                <a href="gallery.html" class="active nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-images text-pink-500"></i> <span data-i18n="nav.gallery">Gallery</span></a>
+                <a href="blog.html" class="nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-newspaper text-orange-500"></i> <span data-i18n="nav.blog">Blog</span></a>
+                <a href="downloads.html" class="nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-file-arrow-down text-emerald-500"></i> <span data-i18n="nav.downloads">Downloads</span></a>
+                <a href="contact.html" class="nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-envelope text-amber-500"></i> <span data-i18n="nav.contact">Contact</span></a>
+                </nav>
+
+                <!-- Actions: Theme Toggle & Mobile Menu Switcher -->
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-[11px] font-extrabold" role="group" aria-label="Language switcher">
+                        <button onclick="setLanguage('en')" id="langBtn-en" class="px-2.5 py-2.5 transition">EN</button>
+                        <button onclick="setLanguage('ne')" id="langBtn-ne" class="px-2.5 py-2.5 transition nepali-font">ने</button>
+                    </div>
+
+                    <button id="themeToggle" onclick="toggleTheme()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all border border-slate-200 dark:border-slate-700" title="Toggle Light/Dark Theme">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:inline"></i>
+                    </button>
+
+                    <!-- Mobile Drawer Toggle -->
+                    <button onclick="toggleMobileMenu()" class="lg:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Navigation -->
+                <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-3 pb-5 space-y-1.5 max-h-[calc(100vh-4rem)] overflow-y-auto">
+            <a href="index.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-house text-blue-500"></i> <span data-i18n="mm.home">Home & Profile</span></a>
+            <a href="calendar.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-calendar-days text-rose-500"></i> <span data-i18n="mm.calendar">Nepali Calendar</span></a>
+            <a href="converter.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-language text-purple-500"></i> <span data-i18n="mm.preeti">Preeti ↔ Unicode Converter</span></a>
+            <a href="tools.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-screwdriver-wrench text-cyan-500"></i> <span data-i18n="mm.tools">All Tools Hub</span></a>
+            <a href="tools.html#number-to-words" class="block w-full text-left pl-8 pr-4 py-2 rounded-xl text-[13px] font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-hashtag text-orange-400"></i> <span data-i18n="mm.ntw">Number to Words Converter</span></a>
+            <a href="typeshala.html" class="block w-full text-left pl-8 pr-4 py-2 rounded-xl text-[13px] font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-keyboard text-emerald-400"></i> <span data-i18n="mm.typeshala">TypeShala Typing Practice</span></a>
+            <a href="dateconverter.html" class="block w-full text-left pl-8 pr-4 py-2 rounded-xl text-[13px] font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-calendar-check text-rose-400"></i> <span data-i18n="mm.dateconv">Date Converter (BS ↔ AD)</span></a>
+            <a href="electricity.html" class="block w-full text-left pl-8 pr-4 py-2 rounded-xl text-[13px] font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-bolt text-amber-400"></i> <span data-i18n="mm.elec">Electricity Bill Calculator</span></a>
+            <a href="emi.html" class="block w-full text-left pl-8 pr-4 py-2 rounded-xl text-[13px] font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-hand-holding-dollar text-blue-400"></i> <span data-i18n="mm.emi">EMI Calculator</span></a>
+            <a href="gallery.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium bg-blue-50 text-blue-700 dark:bg-slate-800 dark:text-blue-300 flex items-center gap-3"><i class="fa-solid fa-images text-pink-500"></i> <span data-i18n="mm.gallery">Photo Gallery</span></a>
+            <a href="blog.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-newspaper text-orange-500"></i> <span data-i18n="mm.blog">Blog & Feed</span></a>
+            <a href="downloads.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-file-arrow-down text-emerald-500"></i> <span data-i18n="mm.downloads">Notes & Download Hub</span></a>
+            <a href="contact.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-envelope text-amber-500"></i> <span data-i18n="mm.contact">Get in Touch</span></a>
+        </div>
+    </header>
+
+    <!-- ================= MAIN: PHOTO GALLERY ================= -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <div class="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+
+            <!-- Gallery Header -->
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-6">
+                <div>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white flex items-center gap-3">
+                        <span class="text-pink-500"><i class="fa-solid fa-images"></i></span>
+                        <span data-i18n="gallery.title">Photo Gallery</span>
+                    </h1>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm mt-1" data-i18n="gallery.subtitle">
+                        Classroom moments, tech workspace and beautiful Nepal scenery. Click any photo for fullscreen view.
+                    </p>
+                </div>
+
+                <!-- Album Counter -->
+                <div class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700">
+                    <i class="fa-solid fa-camera text-pink-500"></i>
+                    <span id="galleryCount">15 photos</span>
+                </div>
+            </div>
+
+            <!-- Album Filter Pills -->
+            <div class="flex flex-wrap items-center gap-2">
+                <button onclick="filterGallery('all')" id="gal-all" class="gal-pill px-4 py-2 rounded-xl text-xs font-bold bg-pink-600 text-white transition">
+                    <span data-i18n="gallery.filter.all">All Photos</span>
+                </button>
+                <button onclick="filterGallery('nepal')" id="gal-nepal" class="gal-pill px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+                    <i class="fa-solid fa-mountain-sun mr-1"></i> <span data-i18n="gallery.filter.nepal">Nepal & Culture</span>
+                </button>
+                <button onclick="filterGallery('tech')" id="gal-tech" class="gal-pill px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+                    <i class="fa-solid fa-laptop-code mr-1"></i> <span data-i18n="gallery.filter.tech">Tech & Coding</span>
+                </button>
+                <button onclick="filterGallery('class')" id="gal-class" class="gal-pill px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+                    <i class="fa-solid fa-chalkboard-user mr-1"></i> <span data-i18n="gallery.filter.class">Classroom & Events</span>
+                </button>
+            </div>
+
+            <!-- Photo Grid -->
+            <div id="galleryGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[170px] sm:auto-rows-[200px] gap-4">
+                <!-- Populated dynamically via js/gallery.js -->
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="mt-auto border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-8 text-center text-xs text-slate-500 dark:text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 space-y-3">
+                        <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-semibold">
+                <a href="index.html" class="hover:text-blue-500" data-i18n="nav.home">Home</a>
+                <a href="calendar.html" class="hover:text-rose-500" data-i18n="nav.calendar">Calendar</a>
+                <a href="tools.html" class="hover:text-cyan-500" data-i18n="nav.tools">Tools</a>
+                <a href="gallery.html" class="hover:text-pink-500" data-i18n="nav.gallery">Gallery</a>
+                <a href="blog.html" class="hover:text-orange-500" data-i18n="nav.blog">Blog</a>
+                <a href="downloads.html" class="hover:text-emerald-500" data-i18n="nav.downloads">Downloads</a>
+                <a href="contact.html" class="hover:text-amber-500" data-i18n="nav.contact">Contact</a>
+            </div>
+            <p>© <span id="currentYear">2026</span> Sasmit Dhungana. <span data-i18n-html="footer.credit">Crafted with <i class="fa-solid fa-heart text-rose-500"></i> for digital Nepal.</span></p>
+        </div>
+    </footer>
+
+    <!-- ================= TOAST & BACK-TO-TOP ================= -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white dark:bg-white dark:text-slate-900 px-5 py-3 rounded-2xl shadow-2xl text-xs font-bold hidden transition-all flex items-center gap-3 border border-slate-800">
+        <i class="fa-solid fa-circle-check text-emerald-400 dark:text-emerald-600"></i>
+        <span id="toastMsg">Action completed successfully!</span>
+    </div>
+
+    <button id="backToTop" class="hidden fixed bottom-6 left-6 z-40 w-11 h-11 rounded-full bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 flex items-center justify-center" title="Back to top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- ================= LIGHTBOX ================= -->
+    <div id="lightbox" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-sm hidden flex items-center justify-center p-4" onclick="if(event.target===this)closeLightbox()">
+        <!-- Close -->
+        <button onclick="closeLightbox()" class="absolute top-5 right-5 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 transition flex items-center justify-center" title="Close (Esc)">
+            <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+
+        <!-- Prev -->
+        <button onclick="prevLightbox(event)" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 transition flex items-center justify-center z-10" title="Previous">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <!-- Image -->
+        <figure class="max-w-4xl w-full space-y-3" onclick="event.stopPropagation()">
+            <img id="lightboxImg" src="" alt="Gallery photo" class="w-full max-h-[75vh] object-contain rounded-2xl shadow-2xl border border-white/10">
+            <figcaption class="flex items-center justify-between text-white px-1">
+                <span id="lightboxCaption" class="text-sm font-bold"></span>
+                <span id="lightboxCounter" class="text-xs font-mono text-slate-300 bg-white/10 px-3 py-1 rounded-full"></span>
+            </figcaption>
+        </figure>
+
+        <!-- Next -->
+        <button onclick="nextLightbox(event)" class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 transition flex items-center justify-center z-10" title="Next">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/i18n.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/gallery.js"></script>
+</body>
+</html>

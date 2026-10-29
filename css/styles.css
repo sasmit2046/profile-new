@@ -1,0 +1,68 @@
+/* ============================================================
+   Sasmit Dhungana — Shared Stylesheet (all pages)
+   ============================================================ */
+
+body {
+    font-family: 'Poppins', 'Mukta', sans-serif;
+}
+
+.nepali-font {
+    font-family: 'Mukta', sans-serif;
+}
+
+.preeti-font {
+    font-family: 'Preeti', 'Times New Roman', serif;
+}
+
+/* Preeti webfont fallback (uses locally installed font if present) */
+@font-face {
+    font-family: 'Preeti';
+    src: local('Preeti');
+}
+
+/* Glassmorphism Effect */
+.glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.dark .glass-card {
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+}
+::-webkit-scrollbar-thumb {
+    background: #a855f7;
+    border-radius: 4px;
+}
+
+/* Active Navigation Link (per current page) */
+.nav-link.active {
+    color: #2563eb;
+    background-color: rgba(37, 99, 235, 0.1);
+    border-bottom: 2px solid #2563eb;
+}
+.dark .nav-link.active {
+    color: #60a5fa;
+    background-color: rgba(96, 165, 250, 0.15);
+    border-bottom: 2px solid #60a5fa;
+}
+
+/* Toast entrance */
+#toastNotification {
+    animation: toastIn 0.25s ease-out;
+}
+@keyframes toastIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

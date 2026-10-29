@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sasmit Dhungana | Web Developer, Educator & Digital Utilities</title>
+    <meta name="description" content="Portfolio of Sasmit Dhungana — full-stack web developer and educator from Nepal. Free Preeti converter, Nepali calendar, and BBS study notes.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%BB%3C/text%3E%3C/svg%3E">
+
+    <!-- Google Fonts: Poppins & Mukta for clean English & Devanagari typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        // Configure Tailwind theme colors and dark mode
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'Mukta', 'sans-serif'],
+                        nepali: ['Mukta', 'sans-serif']
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#2563eb',
+                            600: '#1d4ed8',
+                            700: '#1e40af',
+                            900: '#0f172a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Shared custom styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col selection:bg-blue-500 selection:text-white">
+
+    <!-- ================= HEADER & NAVIGATION BAR ================= -->
+    <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+
+                <!-- Brand Logo -->
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-extrabold text-xl shadow-lg shadow-blue-500/30 group-hover:scale-105 transition-transform">
+                        SD
+                    </div>
+                    <div>
+                        <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+                            Sasmit Dhungana
+                        </span>
+                        <span class="block text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-semibold -mt-1">Developer & Educator</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links (multi-page) -->
+                            <nav class="hidden lg:flex items-center space-x-1">
+                <a href="index.html" class="active nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-house text-blue-500"></i> <span data-i18n="nav.home">Home</span></a>
+                <a href="calendar.html" class="nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-calendar-days text-rose-500"></i> <span data-i18n="nav.calendar">Calendar</span></a>
+                <a href="converter.html" class="nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-language text-purple-500"></i> <span data-i18n="nav.preeti">Preeti</span></a>
+                <div class="relative group">
+                    <a href="tools.html" class="nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-screwdriver-wrench text-cyan-500"></i> <span data-i18n="nav.tools">Tools</span> <i class="fa-solid fa-chevron-down text-[9px] text-cyan-500 mt-0.5"></i></a>
+                    <div class="absolute left-0 top-full pt-2 hidden group-hover:block group-focus-within:block z-50 w-64">
+                        <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 p-2 space-y-0.5">
+                            <a href="tools.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-grip text-cyan-500 w-4"></i> <span data-i18n="nav.tools.all">All Tools Hub</span></a>
+                            <a href="converter.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-language text-purple-500 w-4"></i> <span data-i18n="nav.tools.preeti">Preeti ↔ Unicode</span></a>
+                            <a href="tools.html#number-to-words" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-hashtag text-orange-500 w-4"></i> <span data-i18n="nav.tools.ntw">Number to Words</span></a>
+                            <a href="typeshala.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-keyboard text-emerald-500 w-4"></i> <span data-i18n="nav.tools.typeshala">TypeShala Typing</span></a>
+                            <a href="dateconverter.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-calendar-check text-rose-500 w-4"></i> <span data-i18n="nav.tools.dateconv">Date Converter (BS ↔ AD)</span></a>
+                            <a href="electricity.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-bolt text-amber-500 w-4"></i> <span data-i18n="nav.tools.elec">Electricity Bill</span></a>
+                            <a href="emi.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-hand-holding-dollar text-blue-500 w-4"></i> <span data-i18n="nav.tools.emi">EMI Calculator</span></a>
+                        </div>
+                    </div>
+                </div>
+                <a href="gallery.html" class="nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-images text-pink-500"></i> <span data-i18n="nav.gallery">Gallery</span></a>
+                <a href="blog.html" class="nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-newspaper text-orange-500"></i> <span data-i18n="nav.blog">Blog</span></a>
+                <a href="downloads.html" class="nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-file-arrow-down text-emerald-500"></i> <span data-i18n="nav.downloads">Downloads</span></a>
+                <a href="contact.html" class="nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-envelope text-amber-500"></i> <span data-i18n="nav.contact">Contact</span></a>
+                </nav>
+
+                <!-- Actions: Theme Toggle & Mobile Menu Switcher -->
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-[11px] font-extrabold" role="group" aria-label="Language switcher">
+                        <button onclick="setLanguage('en')" id="langBtn-en" class="px-2.5 py-2.5 transition">EN</button>
+                        <button onclick="setLanguage('ne')" id="langBtn-ne" class="px-2.5 py-2.5 transition nepali-font">ने</button>
+                    </div>
+
+                    <button id="themeToggle" onclick="toggleTheme()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all border border-slate-200 dark:border-slate-700" title="Toggle Light/Dark Theme">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:inline"></i>
+                    </button>
+
+                    <!-- Mobile Drawer Toggle -->
+                    <button onclick="toggleMobileMenu()" class="lg:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Navigation -->
+                <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-3 pb-5 space-y-1.5 max-h-[calc(100vh-4rem)] overflow-y-auto">
+            <a href="index.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium bg-blue-50 text-blue-700 dark:bg-slate-800 dark:text-blue-300 flex items-center gap-3"><i class="fa-solid fa-house text-blue-500"></i> <span data-i18n="mm.home">Home & Profile</span></a>
+            <a href="calendar.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-calendar-days text-rose-500"></i> <span data-i18n="mm.calendar">Nepali Calendar</span></a>
+            <a href="converter.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-language text-purple-500"></i> <span data-i18n="mm.preeti">Preeti ↔ Unicode Converter</span></a>
+            <a href="tools.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-screwdriver-wrench text-cyan-500"></i> <span data-i18n="mm.tools">All Tools Hub</span></a>
+            <a href="tools.html#number-to-words" class="block w-full text-left pl-8 pr-4 py-2 rounded-xl text-[13px] font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-hashtag text-orange-400"></i> <span data-i18n="mm.ntw">Number to Words Converter</span></a>
+            <a href="typeshala.html" class="block w-full text-left pl-8 pr-4 py-2 rounded-xl text-[13px] font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-keyboard text-emerald-400"></i> <span data-i18n="mm.typeshala">TypeShala Typing Practice</span></a>
+            <a href="dateconverter.html" class="block w-full text-left pl-8 pr-4 py-2 rounded-xl text-[13px] font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-calendar-check text-rose-400"></i> <span data-i18n="mm.dateconv">Date Converter (BS ↔ AD)</span></a>
+            <a href="electricity.html" class="block w-full text-left pl-8 pr-4 py-2 rounded-xl text-[13px] font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-bolt text-amber-400"></i> <span data-i18n="mm.elec">Electricity Bill Calculator</span></a>
+            <a href="emi.html" class="block w-full text-left pl-8 pr-4 py-2 rounded-xl text-[13px] font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-hand-holding-dollar text-blue-400"></i> <span data-i18n="mm.emi">EMI Calculator</span></a>
+            <a href="gallery.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-images text-pink-500"></i> <span data-i18n="mm.gallery">Photo Gallery</span></a>
+            <a href="blog.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-newspaper text-orange-500"></i> <span data-i18n="mm.blog">Blog & Feed</span></a>
+            <a href="downloads.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-file-arrow-down text-emerald-500"></i> <span data-i18n="mm.downloads">Notes & Download Hub</span></a>
+            <a href="contact.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-envelope text-amber-500"></i> <span data-i18n="mm.contact">Get in Touch</span></a>
+        </div>
+    </header>
+
+    <!-- ================= MAIN: HOME & PORTFOLIO ================= -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- Hero Card -->
+        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-blue-950 text-white p-8 sm:p-12 lg:p-16 shadow-2xl border border-slate-800">
+            <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-20 -top-20 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+
+                <!-- Text Info -->
+                <div class="lg:col-span-8 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs sm:text-sm font-medium backdrop-blur-md">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                        Full-Stack Web Developer & Educator
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+                        Namaste! I'm <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-300">Sasmit Dhungana</span>
+                    </h1>
+
+                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl leading-relaxed font-light" data-i18n="ix.heroSub">
+                        Passionate about building intuitive Web Applications, Devanagari digital tools, and educational resources. Dedicated to empowering students and developers across Nepal with technology.
+                    </p>
+
+                    <!-- CTA Action Buttons (multi-page links) -->
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
+                        <a href="converter.html" class="px-6 py-3.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold shadow-lg shadow-purple-600/30 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                            <i class="fa-solid fa-language"></i> Preeti Converter
+                        </a>
+                        <a href="downloads.html" class="px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow-lg shadow-blue-600/30 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                            <i class="fa-solid fa-download"></i> Notes & Downloads
+                        </a>
+                        <a href="calendar.html" class="px-6 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-calendar-check text-rose-400"></i> Bikram Sambat Calendar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Dynamic Profile Photo & Customization -->
+                <div class="lg:col-span-4 flex flex-col items-center justify-center space-y-4">
+                    <div class="relative group w-52 h-52 sm:w-64 sm:h-64 rounded-full bg-gradient-to-tr from-blue-500 via-indigo-500 to-purple-500 p-1.5 shadow-2xl ring-4 ring-white/10">
+                        <img id="userProfileImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Sasmit Dhungana" class="w-full h-full object-cover rounded-full transition-transform duration-500 group-hover:scale-105" onerror="this.src='https://placehold.co/400x400/1e293b/ffffff?text=Sasmit+Dhungana'">
+
+                        <!-- Hover Overlay for Image Change -->
+                        <div class="absolute inset-0 bg-slate-950/70 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-3 backdrop-blur-sm">
+                            <span class="text-xs text-slate-200 font-medium">Update Profile Photo</span>
+                            <div class="flex items-center gap-2">
+                                <label for="photoFileInput" class="p-3 bg-blue-600 hover:bg-blue-500 text-white rounded-full cursor-pointer transition shadow" title="Upload Local Photo">
+                                    <i class="fa-solid fa-camera text-base"></i>
+                                </label>
+                                <button onclick="promptPhotoUrl()" class="p-3 bg-purple-600 hover:bg-purple-500 text-white rounded-full transition shadow" title="Paste Image URL">
+                                    <i class="fa-solid fa-link text-base"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="file" id="photoFileInput" accept="image/*" class="hidden" >
+
+                    <div class="text-center">
+                        <h2 class="text-xl font-bold text-white">Sasmit Dhungana</h2>
+                        <p class="text-xs text-blue-300 font-mono">Kathmandu / Lalitpur, Nepal</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Impact Statistics Counters (animated) -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm text-center">
+                <div class="text-3xl sm:text-4xl font-extrabold text-blue-600 dark:text-blue-400 mb-1" data-countup="50" data-suffix="+">50+</div>
+                <div class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium">Web Projects Built</div>
+            </div>
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm text-center">
+                <div class="text-3xl sm:text-4xl font-extrabold text-purple-600 dark:text-purple-400 mb-1" data-countup="10" data-suffix="k+">10k+</div>
+                <div class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium">Students Helped</div>
+            </div>
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm text-center">
+                <div class="text-3xl sm:text-4xl font-extrabold text-emerald-600 dark:text-emerald-400 mb-1" data-countup="100" data-suffix="+">100+</div>
+                <div class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium">Free Study Notes</div>
+            </div>
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm text-center">
+                <div class="text-3xl sm:text-4xl font-extrabold text-amber-600 dark:text-amber-400 mb-1" data-countup="100" data-suffix="%">100%</div>
+                <div class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium">Free Open Tools</div>
+            </div>
+        </div>
+
+        <!-- Feature Showcase Cards -->
+        <div class="space-y-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Featured Digital Tools</h2>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">Essential web utilities built for Nepali users and students.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Feature 1: Nepali Calendar -->
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-rose-100 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400 flex items-center justify-center text-xl font-bold group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Nepali Bikram Sambat Calendar</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                            Complete BS digital पात्रो with current months, holidays (Dashain, Tihar), and built-in AD to BS date converter.
+                        </p>
+                    </div>
+                    <div class="pt-6">
+                        <a href="calendar.html" class="w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-rose-600 hover:text-white dark:hover:bg-rose-600 text-slate-700 dark:text-slate-200 font-semibold text-sm transition flex items-center justify-center gap-2">
+                            Open Calendar <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Feature 2: Preeti to Unicode Converter -->
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl font-bold group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-language"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Preeti & Unicode Converter</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                            Convert traditional Preeti font into modern Devanagari Unicode and vice-versa seamlessly with copy/export support.
+                        </p>
+                    </div>
+                    <div class="pt-6">
+                        <a href="converter.html" class="w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-purple-600 hover:text-white dark:hover:bg-purple-600 text-slate-700 dark:text-slate-200 font-semibold text-sm transition flex items-center justify-center gap-2">
+                            Launch Converter <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Feature 3: Downloads & Notes -->
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl font-bold group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-file-arrow-down"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Downloads & Notes Hub</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                            Free BBS 1st Year study notes (Accounting, Microeconomics, Statistics), computer shortcut cheat sheets, and templates.
+                        </p>
+                    </div>
+                    <div class="pt-6">
+                        <a href="downloads.html" class="w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-emerald-600 hover:text-white dark:hover:bg-emerald-600 text-slate-700 dark:text-slate-200 font-semibold text-sm transition flex items-center justify-center gap-2">
+                            Browse Resources <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- More Pages: Tools Hub, Typeshala, Gallery -->
+        <div class="space-y-6">
+            <div>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">More For You</h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400">Tools hub, Nepali typing tutor and photo gallery — explore every corner of the site.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card: Tools Hub -->
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/50 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-xl font-bold group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-screwdriver-wrench"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Digital Tools Hub</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                            Every free utility in one place — converters, calendars, typing tutor and protected downloads.
+                        </p>
+                    </div>
+                    <div class="pt-6">
+                        <a href="tools.html" class="w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-cyan-600 hover:text-white dark:hover:bg-cyan-600 text-slate-700 dark:text-slate-200 font-semibold text-sm transition flex items-center justify-center gap-2">
+                            Open Tools Hub <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card: Typeshala -->
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-sky-100 dark:bg-sky-950/50 text-sky-600 dark:text-sky-400 flex items-center justify-center text-xl font-bold group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-keyboard"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Typeshala Typing Tutor</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                            The classic Nepali typing tutor — lesson guide, online practice widget and installer download.
+                        </p>
+                    </div>
+                    <div class="pt-6">
+                        <a href="typeshala.html" class="w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-sky-600 hover:text-white dark:hover:bg-sky-600 text-slate-700 dark:text-slate-200 font-semibold text-sm transition flex items-center justify-center gap-2">
+                            Start Typing <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card: Gallery -->
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-pink-100 dark:bg-pink-950/50 text-pink-600 dark:text-pink-400 flex items-center justify-center text-xl font-bold group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-images"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Photo Gallery</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                            Classroom moments, workspace shots and Nepal scenery — with album filters and fullscreen view.
+                        </p>
+                    </div>
+                    <div class="pt-6">
+                        <a href="gallery.html" class="w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-pink-600 hover:text-white dark:hover:bg-pink-600 text-slate-700 dark:text-slate-200 font-semibold text-sm transition flex items-center justify-center gap-2">
+                            View Gallery <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills & Technical Stack -->
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-6">
+            <div>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Skills & Technologies</h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400">Tools, frameworks, and skill sets Sasmit specializes in.</p>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+                <span class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                    <i class="fa-brands fa-html5 text-orange-500 text-lg"></i> HTML5 / CSS3
+                </span>
+                <span class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                    <i class="fa-brands fa-js text-yellow-500 text-lg"></i> JavaScript (ES6+)
+                </span>
+                <span class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                    <i class="fa-brands fa-php text-indigo-500 text-lg"></i> PHP & MySQL
+                </span>
+                <span class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                    <i class="fa-solid fa-pen-nib text-purple-500 text-lg"></i> Nepali Preeti / Unicode Engine
+                </span>
+                <span class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                    <i class="fa-solid fa-file-excel text-emerald-500 text-lg"></i> MS Office & Business Excel
+                </span>
+                <span class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                    <i class="fa-solid fa-graduation-cap text-sky-500 text-lg"></i> Computer Skills Educator
+                </span>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="mt-auto border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-8 text-center text-xs text-slate-500 dark:text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 space-y-3">
+                        <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-semibold">
+                <a href="index.html" class="hover:text-blue-500" data-i18n="nav.home">Home</a>
+                <a href="calendar.html" class="hover:text-rose-500" data-i18n="nav.calendar">Calendar</a>
+                <a href="tools.html" class="hover:text-cyan-500" data-i18n="nav.tools">Tools</a>
+                <a href="gallery.html" class="hover:text-pink-500" data-i18n="nav.gallery">Gallery</a>
+                <a href="blog.html" class="hover:text-orange-500" data-i18n="nav.blog">Blog</a>
+                <a href="downloads.html" class="hover:text-emerald-500" data-i18n="nav.downloads">Downloads</a>
+                <a href="contact.html" class="hover:text-amber-500" data-i18n="nav.contact">Contact</a>
+            </div>
+            <p>© <span id="currentYear">2026</span> Sasmit Dhungana. <span data-i18n-html="footer.credit">Crafted with <i class="fa-solid fa-heart text-rose-500"></i> for digital Nepal.</span></p>
+        </div>
+    </footer>
+
+    <!-- ================= TOAST & BACK-TO-TOP ================= -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white dark:bg-white dark:text-slate-900 px-5 py-3 rounded-2xl shadow-2xl text-xs font-bold hidden transition-all flex items-center gap-3 border border-slate-800">
+        <i class="fa-solid fa-circle-check text-emerald-400 dark:text-emerald-600"></i>
+        <span id="toastMsg">Action completed successfully!</span>
+    </div>
+
+    <button id="backToTop" class="hidden fixed bottom-6 left-6 z-40 w-11 h-11 rounded-full bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 flex items-center justify-center" title="Back to top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="js/i18n.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

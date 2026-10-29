@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity Bill Calculator (NEA) | Sasmit Dhungana</title>
+    <meta name="description" content="Calculate your monthly NEA electricity bill — Nepal Electricity Authority domestic single-phase slab tariff with service charge and 5% VAT, plus slab-wise breakdown.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9A%A1%3C/text%3E%3C/svg%3E">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'Mukta', 'sans-serif'],
+                        nepali: ['Mukta', 'sans-serif']
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff', 100: '#e0effe', 500: '#2563eb',
+                            600: '#1d4ed8', 700: '#1e40af', 900: '#0f172a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col selection:bg-blue-500 selection:text-white">
+
+    <!-- ================= HEADER ================= -->
+    <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-extrabold text-xl shadow-lg shadow-blue-500/30 group-hover:scale-105 transition-transform">SD</div>
+                    <div class="block lg:hidden xl:block">
+                        <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">Sasmit Dhungana</span>
+                        <span class="block text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-semibold -mt-1">Developer & Educator</span>
+                    </div>
+                </a>
+
+                <nav class="hidden lg:flex items-center space-x-1">
+                    <a href="index.html" class="nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-house text-blue-500"></i> <span data-i18n="nav.home">Home</span></a>
+                    <a href="calendar.html" class="nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-calendar-days text-rose-500"></i> <span data-i18n="nav.calendar">Calendar</span></a>
+                    <a href="converter.html" class="nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-language text-purple-500"></i> <span data-i18n="nav.preeti">Preeti</span></a>
+                    <div class="relative group">
+                        <a href="tools.html" class="nav-link active px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-screwdriver-wrench text-cyan-500"></i> <span data-i18n="nav.tools">Tools</span> <i class="fa-solid fa-chevron-down text-[9px] text-cyan-500 mt-0.5"></i></a>
+                        <div class="absolute left-0 top-full pt-2 hidden group-hover:block group-focus-within:block z-50 w-64">
+                            <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 p-2 space-y-0.5">
+                                <a href="tools.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-grip text-cyan-500 w-4"></i> <span data-i18n="nav.tools.all">All Tools Hub</span></a>
+                                <a href="converter.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-language text-purple-500 w-4"></i> <span data-i18n="nav.tools.preeti">Preeti ↔ Unicode</span></a>
+                                <a href="tools.html#number-to-words" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-hashtag text-orange-500 w-4"></i> <span data-i18n="nav.tools.ntw">Number to Words</span></a>
+                                <a href="typeshala.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-keyboard text-emerald-500 w-4"></i> <span data-i18n="nav.tools.typeshala">TypeShala Typing</span></a>
+                                <a href="dateconverter.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-calendar-check text-rose-500 w-4"></i> <span data-i18n="nav.tools.dateconv">Date Converter (BS ↔ AD)</span></a>
+                                <a href="electricity.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-bolt text-amber-500 w-4"></i> <span data-i18n="nav.tools.elec">Electricity Bill</span></a>
+                                <a href="emi.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800"><i class="fa-solid fa-hand-holding-dollar text-blue-500 w-4"></i> <span data-i18n="nav.tools.emi">EMI Calculator</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="gallery.html" class="nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-images text-pink-500"></i> <span data-i18n="nav.gallery">Gallery</span></a>
+                    <a href="blog.html" class="nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-newspaper text-orange-500"></i> <span data-i18n="nav.blog">Blog</span></a>
+                    <a href="downloads.html" class="nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-file-arrow-down text-emerald-500"></i> <span data-i18n="nav.downloads">Downloads</span></a>
+                    <a href="contact.html" class="nav-link px-2.5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-envelope text-amber-500"></i> <span data-i18n="nav.contact">Contact</span></a>
+                </nav>
+
+                <div class="flex items-center gap-2.5">
+                    <div class="flex items-center rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-[11px] font-extrabold" role="group" aria-label="Language switcher">
+                        <button onclick="setLanguage('en')" id="langBtn-en" class="px-2.5 py-2.5 transition">EN</button>
+                        <button onclick="setLanguage('ne')" id="langBtn-ne" class="px-2.5 py-2.5 transition nepali-font">ने</button>
+                    </div>
+                    <button id="themeToggle" onclick="toggleTheme()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all border border-slate-200 dark:border-slate-700" title="Toggle Light/Dark Theme">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:inline"></i>
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="lg:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-3 pb-5 space-y-1.5 max-h-[calc(100vh-4rem)] overflow-y-auto">
+            <a href="index.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-house text-blue-500"></i> <span data-i18n="mm.home">Home & Profile</span></a>
+            <a href="calendar.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-calendar-days text-rose-500"></i> <span data-i18n="mm.calendar">Nepali Calendar</span></a>
+            <a href="converter.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-language text-purple-500"></i> <span data-i18n="mm.preeti">Preeti ↔ Unicode Converter</span></a>
+            <a href="tools.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-screwdriver-wrench text-cyan-500"></i> <span data-i18n="mm.tools">All Tools Hub</span></a>
+            <a href="tools.html#number-to-words" class="block w-full text-left pl-8 pr-4 py-2 rounded-xl text-[13px] font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-hashtag text-orange-400"></i> <span data-i18n="mm.ntw">Number to Words Converter</span></a>
+            <a href="typeshala.html" class="block w-full text-left pl-8 pr-4 py-2 rounded-xl text-[13px] font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-keyboard text-emerald-400"></i> <span data-i18n="mm.typeshala">TypeShala Typing Practice</span></a>
+            <a href="dateconverter.html" class="block w-full text-left pl-8 pr-4 py-2 rounded-xl text-[13px] font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-calendar-check text-rose-400"></i> <span data-i18n="mm.dateconv">Date Converter (BS ↔ AD)</span></a>
+            <a href="electricity.html" class="block w-full text-left pl-8 pr-4 py-2 rounded-xl text-[13px] font-medium bg-blue-50 text-blue-700 dark:bg-slate-800 dark:text-blue-300 flex items-center gap-3"><i class="fa-solid fa-bolt text-amber-400"></i> <span data-i18n="mm.elec">Electricity Bill Calculator</span></a>
+            <a href="emi.html" class="block w-full text-left pl-8 pr-4 py-2 rounded-xl text-[13px] font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-hand-holding-dollar text-blue-400"></i> <span data-i18n="mm.emi">EMI Calculator</span></a>
+            <a href="gallery.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-images text-pink-500"></i> <span data-i18n="mm.gallery">Photo Gallery</span></a>
+            <a href="blog.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-newspaper text-orange-500"></i> <span data-i18n="mm.blog">Blog & Feed</span></a>
+            <a href="downloads.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-file-arrow-down text-emerald-500"></i> <span data-i18n="mm.downloads">Notes & Download Hub</span></a>
+            <a href="contact.html" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3"><i class="fa-solid fa-envelope text-amber-500"></i> <span data-i18n="mm.contact">Get in Touch</span></a>
+        </div>
+    </header>
+
+    <!-- ================= MAIN: ELECTRICITY BILL ================= -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+
+        <div class="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+
+            <div class="border-b border-slate-200 dark:border-slate-800 pb-5">
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white flex items-center gap-3">
+                    <span class="text-amber-500"><i class="fa-solid fa-bolt"></i></span>
+                    <span data-i18n="elec.title">Electricity Bill Calculator</span>
+                </h1>
+                <p class="text-slate-600 dark:text-slate-400 text-sm mt-1.5" data-i18n="elec.subtitle">Estimate your monthly NEA electricity bill (domestic, single-phase) using the official slab tariff.</p>
+            </div>
+
+            <!-- Input mode toggle -->
+            <div class="flex items-center gap-2">
+                <button id="modeUnitsBtn" onclick="setElecMode('units')" class="px-4 py-2 rounded-xl text-xs font-bold transition shadow-sm bg-amber-500 text-white"><i class="fa-solid fa-plug-circle-bolt mr-1"></i> <span data-i18n="elec.mode.units">Enter Units</span></button>
+                <button id="modeReadingBtn" onclick="setElecMode('reading')" class="px-4 py-2 rounded-xl text-xs font-bold transition text-slate-600 dark:text-slate-300 hover:text-amber-500"><i class="fa-solid fa-gauge-high mr-1"></i> <span data-i18n="elec.mode.reading">Meter Reading</span></button>
+            </div>
+
+            <!-- Form -->
+            <div class="space-y-4">
+                <div id="elecUnitsWrap">
+                    <label class="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1" data-i18n="elec.units">Units Consumed (kWh)</label>
+                    <input type="number" id="elecUnits" min="0" max="5000" placeholder="e.g. 157" data-i18n-ph="elec.unitsPh" class="w-full p-2.5 text-sm rounded-xl border border-slate-300 dark:border-slate-600 dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 transition">
+                </div>
+                <div id="elecReadingWrap" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1" data-i18n="elec.prev">Previous Reading</label>
+                        <input type="number" id="elecPrev" min="0" placeholder="e.g. 04320" class="w-full p-2.5 text-sm rounded-xl border border-slate-300 dark:border-slate-600 dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1" data-i18n="elec.curr">Current Reading</label>
+                        <input type="number" id="elecCurr" min="0" placeholder="e.g. 04477" class="w-full p-2.5 text-sm rounded-xl border border-slate-300 dark:border-slate-600 dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 transition">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1" data-i18n="elec.meter">Meter Capacity</label>
+                        <select id="elecMeter" class="w-full p-2.5 text-sm rounded-xl border border-slate-300 dark:border-slate-600 dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 transition">
+                            <option value="5" data-i18n="elec.meter5">5 Ampere — Basic</option>
+                            <option value="15" data-i18n="elec.meter15">15 Ampere — Standard</option>
+                            <option value="30" data-i18n="elec.meter30">30 Ampere — Large</option>
+                        </select>
+                    </div>
+                    <div class="flex items-end gap-2">
+                        <button onclick="calculateElectricity()" class="flex-1 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-white font-bold text-xs flex items-center justify-center gap-2 shadow transition"><i class="fa-solid fa-calculator"></i> <span data-i18n="elec.calc">Calculate Bill</span></button>
+                        <button onclick="resetElectricity()" class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold text-xs flex items-center gap-2 border border-slate-200 dark:border-slate-700 transition"><i class="fa-solid fa-rotate-left"></i> <span data-i18n="elec.reset">Reset</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error -->
+            <div id="elecError" class="hidden text-xs font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900 rounded-xl px-4 py-3 flex items-center gap-2">
+                <i class="fa-solid fa-triangle-exclamation"></i> <span id="elecErrorMsg"></span>
+            </div>
+
+            <!-- Results -->
+            <div id="elecResult" class="hidden space-y-5">
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                    <div class="rounded-2xl p-4 bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/50">
+                        <span class="block text-[10px] font-extrabold uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-1" data-i18n="elec.energy">Energy Charge</span>
+                        <span id="elecEnergy" class="text-lg font-extrabold text-slate-900 dark:text-white">Rs 0</span>
+                    </div>
+                    <div class="rounded-2xl p-4 bg-blue-50 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900/50">
+                        <span class="block text-[10px] font-extrabold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-1" data-i18n="elec.service">Service Charge</span>
+                        <span id="elecService" class="text-lg font-extrabold text-slate-900 dark:text-white">Rs 0</span>
+                    </div>
+                    <div class="rounded-2xl p-4 bg-purple-50 dark:bg-purple-950/30 border border-purple-100 dark:border-purple-900/50">
+                        <span class="block text-[10px] font-extrabold uppercase tracking-wider text-purple-600 dark:text-purple-400 mb-1" data-i18n="elec.vat">VAT (5%)</span>
+                        <span id="elecVat" class="text-lg font-extrabold text-slate-900 dark:text-white">Rs 0</span>
+                    </div>
+                    <div class="rounded-2xl p-4 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/50">
+                        <span class="block text-[10px] font-extrabold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-1" data-i18n="elec.total">Total Payable</span>
+                        <span id="elecTotal" class="text-lg font-extrabold text-emerald-700 dark:text-emerald-300">Rs 0</span>
+                    </div>
+                </div>
+
+                <div class="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+                    <div class="bg-slate-50 dark:bg-slate-800/70 px-4 py-3 text-xs font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group text-amber-500"></i> <span data-i18n="elec.breakdown">Slab-wise Breakdown</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs">
+                            <thead>
+                                <tr class="bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 text-left">
+                                    <th class="px-4 py-2.5 font-bold" data-i18n="elec.th.slab">Slab (units)</th>
+                                    <th class="px-4 py-2.5 font-bold" data-i18n="elec.th.unitsUsed">Units</th>
+                                    <th class="px-4 py-2.5 font-bold" data-i18n="elec.th.rate">Rate / unit</th>
+                                    <th class="px-4 py-2.5 font-bold text-right" data-i18n="elec.th.amount">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody id="elecSlabTable" class="divide-y divide-slate-100 dark:divide-slate-800"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="elecFreeNote" class="hidden text-[11px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/50 rounded-xl px-4 py-2.5 flex items-center gap-2">
+                    <i class="fa-solid fa-gift"></i> <span data-i18n="elec.freeSlab">First 20 units free (5A meter)</span>
+                </div>
+            </div>
+
+            <p class="text-[11px] text-slate-400 dark:text-slate-500 flex items-start gap-1.5"><i class="fa-solid fa-circle-info mt-0.5"></i> <span data-i18n="elec.note">Tariff: NEA domestic single-phase, FY 2082/83 slab rates. Actual bill may include meter rent, penalties or local adjustments.</span></p>
+        </div>
+
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="mt-auto border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-8 text-center text-xs text-slate-500 dark:text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 space-y-3">
+            <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-semibold">
+                <a href="index.html" class="hover:text-blue-500" data-i18n="nav.home">Home</a>
+                <a href="calendar.html" class="hover:text-rose-500" data-i18n="nav.calendar">Calendar</a>
+                <a href="tools.html" class="hover:text-cyan-500" data-i18n="nav.tools">Tools</a>
+                <a href="gallery.html" class="hover:text-pink-500" data-i18n="nav.gallery">Gallery</a>
+                <a href="blog.html" class="hover:text-orange-500" data-i18n="nav.blog">Blog</a>
+                <a href="downloads.html" class="hover:text-emerald-500" data-i18n="nav.downloads">Downloads</a>
+                <a href="contact.html" class="hover:text-amber-500" data-i18n="nav.contact">Contact</a>
+            </div>
+            <p>© <span id="currentYear">2026</span> Sasmit Dhungana. <span data-i18n-html="footer.credit">Crafted with <i class="fa-solid fa-heart text-rose-500"></i> for digital Nepal.</span></p>
+        </div>
+    </footer>
+
+    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white dark:bg-white dark:text-slate-900 px-5 py-3 rounded-2xl shadow-2xl text-xs font-bold hidden transition-all flex items-center gap-3 border border-slate-800">
+        <i class="fa-solid fa-circle-check text-emerald-400 dark:text-emerald-600"></i>
+        <span id="toastMsg">Action completed successfully!</span>
+    </div>
+
+    <button id="backToTop" class="hidden fixed bottom-6 left-6 z-40 w-11 h-11 rounded-full bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 flex items-center justify-center" title="Back to top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <script src="js/i18n.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/electricity.js"></script>
+</body>
+</html>
